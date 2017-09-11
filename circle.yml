@@ -1,5 +1,18 @@
+
 deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: sample-alilynne
+  deploy_staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app sample-alilynne
+      - git push git@heroku.com:sample-alilynne.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app sample-alilynne
+      - heroku restart --app sample-alilynne
+      - heroku maintenance:off --app sample-alilynne
+  deploy_production:
+    branch: production
+    commands:
+      - heroku maintenance:on --app sample-alilynne
+      - git push git@heroku.com:sample-alilynne.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app sample-alilynne
+      - heroku restart --app sample-alilynne
+      - heroku maintenance:off --app sample-alilynne
