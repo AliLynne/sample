@@ -1,7 +1,9 @@
 
 deployment:
-  deploy_staging:
-    branch: staging
+  staging:
+    branch: master
+    heroku:
+      appname: sample-alilynne
     commands:
       - heroku maintenance:on --app sample-alilynne
       - git push git@heroku.com:sample-alilynne.git $CIRCLE_SHA1:refs/heads/master
